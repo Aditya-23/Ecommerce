@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100vh;
+    padding-top: 20px;
+    padding-left: 80px;
+    background-color: rgba(25, 185, 206, 0.658);
+}
