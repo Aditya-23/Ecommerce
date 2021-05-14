@@ -9,8 +9,11 @@ class Home extends Component {
             return <Redirect to="/signin"/>
         }
         else{
+            // this.props.cookies.remove("token");
+            // this.props.cookies.remove("user")
             return (
                     <Layout sidebar={true} cookies={this.props.cookies}>
+                    
                         <h1>Home</h1>
                     </Layout>
             )

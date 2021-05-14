@@ -107,7 +107,7 @@ class Categories extends Component {
                                 <select onChange={this.handleSelect}>
                                     <option>Select Parent Category</option>
                                     {this.props.categoriesAsList.map(category => 
-                                        <option>{category.name}</option>
+                                        <option key={category.name}>{category.name}</option>
                                     )}
                                 </select>
                                 </Col>

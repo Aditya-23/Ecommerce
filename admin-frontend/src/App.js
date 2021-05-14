@@ -20,7 +20,7 @@ import Products from './containers/Products';
 import Orders from './containers/Orders';
 import Categories from './containers/Categories';
 import { getCategories } from './actions/category.action';
-import {withCookies, Cookies} from "react-cookie"
+import {withCookies, Cookies} from "react-cookie";
 import {instanceOf} from "prop-types"
 
 
@@ -30,12 +30,6 @@ class App extends Component {
     super(props);
 
   }
-
-  componentDidMount = async () => {
-    if(!window.localStorage.getItem("token")){
-      this.props.isUserLoggedIn()
-    }
-}
 
   render(){
     return (

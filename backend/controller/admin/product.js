@@ -24,7 +24,7 @@ const addProduct = async (req, res, next) => {
     }
     newProduct.images = []
     req.files.forEach(file => {
-        newProduct.images.push({img : file.path})
+        newProduct.images.push({img : file.filename})
     });
     const newProductObj = new Product(newProduct);
     

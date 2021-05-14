@@ -2,6 +2,8 @@ import ecomAxios from "../helpers/axios";
 import Cookies from "js-cookie"
 import { cookie } from "express-validator";
 
+const expiryTime = 1800*1000; //30 min
+
 export const adminLogin = ({email,password, cookies}) => {
     return async (dispatch) => {
         try {
@@ -14,8 +16,8 @@ export const adminLogin = ({email,password, cookies}) => {
                     // window.localStorage.setItem("token", result.data.token);
                     // window.localStorage.setItem("authenticated", true);
                     // window.localStorage.setItem("user", JSON.stringify(result.data.user));
-                    cookies.set("token", result.data.token);
-                    cookies.set("user", result.data.user);
+                    cookies.set("token", result.data.token, { expires : new Date(Date.now() + expiryTime)});
+                    cookies.set("user", result.data.user, { expires : new Date(Date.now() + expiryTime)});
                     dispatch({
                         type : "user_logging_in",
                         payload : {
