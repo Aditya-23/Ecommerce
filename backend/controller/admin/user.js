@@ -27,7 +27,7 @@ const signup = async (req, res, next) => {
 }
 
 const signin = async (req, res, next) => {
-    const user = await User.findOne({email : req.body.email});
+    const user = await User.findOne({email : req.body.email, role:"Admin"});
     if(!user){
         return res.status(400).json({ok : false, msg:"Incorrect email"});
     }
@@ -35,7 +35,7 @@ const signin = async (req, res, next) => {
     if(comparedResult){
         const jwt_token = jwt.sign({id: user._id.toString(), userEmail:user.email, role:user.role}, process.env.JWT_SECRET_KEY, {expiresIn : "2h"});
         res.cookie("token", jwt_token, {expiresIn : "2h"});
-        return res.status(201).json({ok: true, token : jwt_token, msg:"User successfulyl logged in!", user: user});
+        return res.status(201).json({ok: true, token : jwt_token, msg:"User successfully logged in!", user: user});
     }
     else{
         return res.status(400).json({ok : false, msg:"Incorrect Password"});

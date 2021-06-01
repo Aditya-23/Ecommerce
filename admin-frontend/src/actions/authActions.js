@@ -2,7 +2,7 @@ import ecomAxios from "../helpers/axios";
 import Cookies from "js-cookie"
 import { cookie } from "express-validator";
 
-const expiryTime = 1800*1000; //30 min
+const expiryTime = 3600*1000; //30 min
 
 export const adminLogin = ({email,password, cookies}) => {
     return async (dispatch) => {

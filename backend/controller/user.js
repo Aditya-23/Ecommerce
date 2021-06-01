@@ -28,22 +28,29 @@ const signup = async (req, res, next) => {
 }
 
 const signin = async (req, res, next) => {
-    const user = await User.findOne({email : req.body.email});
+    const user = await User.findOne({email : req.body.email, role:"User"});
     if(!user){
         return res.status(400).json({ok : false, msg:"Incorrect email"});
     }
     const comparedResult = bcrypt.compareSync(req.body.password, user.hash_password);
     if(comparedResult){
-        const jwt_token = jwt.sign({id: user._id.toString(), data:user.email, role:user.role}, process.env.JWT_SECRET_KEY, {expiresIn : "30m"});
-        return res.status(201).json({ok: true, token : jwt_token, msg:"User successfulyl logged in!", user: user});
+        const jwt_token = jwt.sign({id: user._id.toString(), userEmail:user.email, role:user.role}, process.env.JWT_SECRET_KEY, {expiresIn : "2h"});
+        res.cookie("token", jwt_token, {expiresIn : "2h"});
+        return res.status(201).json({ok: true, token : jwt_token, msg:"User successfully logged in!", user: user});
     }
     else{
-        return res.status(400).json("Incorrect password!");
+        return res.status(400).json({ok : false, msg:"Incorrect Password"});
     }
 };
 
+const signout = async (req, res, next) => {
+    res.clearCookie("token");
+    console.log("Sign out")
+    return res.status(201).json({message:"Signed out successfully!"})
+};
 
 module.exports = {
-    signup : signup,
-    signin : signin,
+    signup,
+    signin,
+    signout,
 }

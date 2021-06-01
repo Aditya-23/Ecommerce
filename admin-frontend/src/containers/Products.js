@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Row, Col, Button, Modal, Form, Table, CardDeck, Card, Spinner, Media } from 'react-bootstrap';
+import { Row, Col, Button, Modal, Form, Card, Spinner, Media, CardColumns, Containers, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router';
 import { getCategories } from '../actions/category.action';
 import { addProduct, getAllProducts } from '../actions/products.action';
 import Layout from './layout/layout'
+import {Grid, List} from "react-virtualized"
 
 class Products extends Component {
     constructor(props){
@@ -22,7 +23,8 @@ class Products extends Component {
             categoriesAsList : [],
             token : "",
             showProduct : false,
-            currentProductIndex : 0
+            currentProductIndex : 0,
+            productsLoaded: false,
         }
     }
 
@@ -74,12 +76,42 @@ class Products extends Component {
         })
     }
 
+
     componentDidMount = async () => {
         var token = this.props.cookies.get("token")
         await this.setState({token : token});
         await this.props.getAllProducts(token);
         await this.props.getAllCategories(token);
         await this.setState({categoriesAsList : this.props.categoriesAsList});
+        console.log(this.props.allProducts)
+    }
+
+    renderCard = (product) => {
+        return (
+            <Col>
+                <Card as="a" onClick={() => this.handleProductModalOpen(0)} style={{ cursor: "pointer", width: 200 }}>
+                    <Card.Img variant="top" src={"http://localhost:7000/public/" + product.images[0].img} style={{ width: 100, height: 120, alignSelf: "center" }} />
+                    <Card.Body>
+                        <Card.Title>{product.name}</Card.Title>
+
+                        <Card.Text style={{ display: "flex", justifyContent: "center" }}>
+                            {product.categoryName}
+                        </Card.Text>
+                    </Card.Body>
+                    <Card.Footer>
+                        <Card.Text>Rs.  {product.price}</Card.Text>
+                    </Card.Footer>
+                </Card>
+            </Col>
+        )
+    }
+
+
+    renderProducts = () => {
+        var numOfRows = this.props.allProducts.length / 4;
+        for(var i = 0; i < numOfRows; i++){
+            this.renderRowProducts(i);
+        }
     }
 
     render() {
@@ -198,11 +230,13 @@ class Products extends Component {
                             </Col>
                         </Row>
                         <Row>
-                            <CardDeck>
+                            <div style={{display:"flex", justifyContent:"flex-start", flexWrap:"wrap"}}>
                                 {
+                                    // this.renderProducts()
+
                                     this.props.allProducts.map(product =>
-                                        <Card as="a" onClick={() => this.handleProductModalOpen(this.props.allProducts.indexOf(product))} style={{ cursor: "pointer" }}>
-                                            <Card.Img variant="top" src={"http://localhost:7000/public/" + product.images[0].img} />
+                                        <Card as="a" onClick={() => this.handleProductModalOpen(this.props.allProducts.indexOf(product))} style={{ cursor: "pointer", width: 200, margin:15 }}>
+                                            <Card.Img variant="top" src={"http://localhost:7000/public/" + product.images[0].img} style={{width: 100, height:140, alignSelf:"center"}} />
                                             <Card.Body>
                                                 <Card.Title>{product.name}</Card.Title>
 
@@ -216,7 +250,7 @@ class Products extends Component {
                                         </Card>
                                     )
                                 }
-                            </CardDeck>
+                            </div>
                         </Row>
                     </Layout>
                 )

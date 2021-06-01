@@ -16,6 +16,6 @@ const upload = multer({storage : storage});
 
 router.post("/add-category", requireSignin, authorizedAdmin, upload.single("image"), addCategory);
 
-router.get("/get-categories", requireSignin, authorizedAdmin, getCategories);
+router.get("/get-categories", requireSignin, getCategories);
 
 module.exports = router;

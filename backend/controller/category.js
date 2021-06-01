@@ -8,13 +8,13 @@ const addCategory = async (req, res, next) => {
         img : req.file.path,
     } 
 
-
-    if(req.body.parentId){
-        newCategory.parentId = req.body.parentId;
+    if(req.body.parentId == "undefined"){
+        newCategory.parentId = null
     }
     else{
-        newCategory.parentId = null;
+        newCategory.parentId = req.body.parentId;
     }
+
     const newCategoryObj = new Category(newCategory);
     try {
         await newCategoryObj.save();
