@@ -7,7 +7,6 @@ import { ErrorMessage, Formik} from "formik";
 import {connect} from "react-redux"
 import {adminLogin} from "../actions/authActions"
 import { Redirect, Route, withRouter } from 'react-router-dom';
-import {isUserLoggedIn} from "../actions/authActions"
 import Home from './Home';
 import authReducer from "../reducers/index"
 import Cookies from 'js-cookie';
@@ -81,8 +80,7 @@ class Signin extends Component {
     }
 
     render() {
-        if(this.props.cookies.get("token")){
-            console.log("logged in");
+        if(this.props.cookies.get("user-token")){
             return <Redirect to="/"/>
         }
         else{
@@ -126,7 +124,6 @@ class Signin extends Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         login : (user) => dispatch(adminLogin(user)),
-        isUserLoggedIn : () => dispatch(isUserLoggedIn()),
     }
 }
 

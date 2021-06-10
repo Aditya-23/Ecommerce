@@ -34,7 +34,7 @@ const signin = async (req, res, next) => {
     const comparedResult = bcrypt.compareSync(req.body.password, user.hash_password);
     if(comparedResult){
         const jwt_token = jwt.sign({id: user._id.toString(), userEmail:user.email, role:user.role}, process.env.JWT_SECRET_KEY, {expiresIn : "2h"});
-        res.cookie("token", jwt_token, {expiresIn : "2h"});
+        res.cookie("admin-token", jwt_token, {expiresIn : "2h"});
         return res.status(201).json({ok: true, token : jwt_token, msg:"User successfully logged in!", user: user});
     }
     else{
@@ -43,7 +43,7 @@ const signin = async (req, res, next) => {
 };
 
 const signout = async (req, res, next) => {
-    res.clearCookie("token");
+    res.clearCookie("admin-token");
     console.log("Sign out")
     return res.status(201).json({message:"Signed out successfully!"})
 };

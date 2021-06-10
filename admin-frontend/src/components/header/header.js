@@ -48,7 +48,7 @@ class Header extends Component {
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                 </Nav>
-                {this.props.cookies.get("token") ? this.loggedInUser() : this.loggedOutUser()}
+                {this.props.cookies.get("admin-token") ? this.loggedInUser() : this.loggedOutUser()}
             </Navbar>
         )
     }

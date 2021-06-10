@@ -16,8 +16,8 @@ export const adminLogin = ({email,password, cookies}) => {
                     // window.localStorage.setItem("token", result.data.token);
                     // window.localStorage.setItem("authenticated", true);
                     // window.localStorage.setItem("user", JSON.stringify(result.data.user));
-                    cookies.set("token", result.data.token, { expires : new Date(Date.now() + expiryTime)});
-                    cookies.set("user", result.data.user, { expires : new Date(Date.now() + expiryTime)});
+                    cookies.set("admin-token", result.data.token, { expires : new Date(Date.now() + expiryTime)});
+                    cookies.set("admin", result.data.user, { expires : new Date(Date.now() + expiryTime)});
                     dispatch({
                         type : "user_logging_in",
                         payload : {
@@ -50,11 +50,11 @@ export const adminSignout = (cookies) => {
     return async (dispatch) => {
         const result = await ecomAxios.get("/api/admin-auth/signout", {
             headers : {
-                Authorization : cookies.get("token")
+                Authorization : cookies.get("admin-token")
             }
         }, )
         if(result.status == 201){
-            cookies.remove("token");
+            cookies.remove("admin-token");
             dispatch({
                 type : "user_signout",
             });
@@ -69,9 +69,9 @@ export const adminSignout = (cookies) => {
 
 export const isUserLoggedIn = () => {
     return async (dispatch) => {
-        const token = window.localStorage.getItem("token")
+        const token = window.localStorage.getItem("admin-token")
         if(token){
-            let user = JSON.parse(window.localStorage.getItem("user"));
+            let user = JSON.parse(window.localStorage.getItem("admin"));
             dispatch({type : "user_logged_in", payload : {
                 user : user,
                 token : token

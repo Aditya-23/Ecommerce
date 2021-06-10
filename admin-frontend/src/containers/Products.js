@@ -59,7 +59,7 @@ class Products extends Component {
             newForm.append("images", i);
         }
         console.log("adding product from frontend")
-        await this.props.addProduct(newForm, this.props.cookies.get("token"));
+        await this.props.addProduct(newForm, this.props.cookies.get("admin-token"));
         await this.setState({show : false});
         window.location.reload();
     }
@@ -78,7 +78,7 @@ class Products extends Component {
 
 
     componentDidMount = async () => {
-        var token = this.props.cookies.get("token")
+        var token = this.props.cookies.get("admin-token")
         await this.setState({token : token});
         await this.props.getAllProducts(token);
         await this.props.getAllCategories(token);
@@ -115,7 +115,7 @@ class Products extends Component {
     }
 
     render() {
-        if(!this.props.cookies.get("token")){
+        if(!this.props.cookies.get("admin-token")){
             console.log("logged in");
             return <Redirect to="/Signin"/>
         }

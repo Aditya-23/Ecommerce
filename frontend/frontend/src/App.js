@@ -46,10 +46,5 @@ class App extends Component {
   
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    isUserLoggedIn : () => dispatch(isUserLoggedIn),
-  }
-}
 
-export default withRouter(connect(null, mapDispatchToProps)(withCookies(App)));
+export default withRouter((withCookies(App)));

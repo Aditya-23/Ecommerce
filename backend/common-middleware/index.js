@@ -4,6 +4,7 @@ const requireSignin = (req, res, next) => {
     let auth_token = req.headers.authorization;
     let user = jwt.verify(auth_token, process.env.JWT_SECRET_KEY);
     req.user = user
+    console.log("USER : ", req.user)
     console.log("user signed in ")
     next();
 };

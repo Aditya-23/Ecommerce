@@ -5,7 +5,7 @@ import Layout from "../containers/layout/layout";
 
 class Home extends Component {
     render() {
-        if(!this.props.cookies.get("token")){
+        if(!this.props.cookies.get("admin-token")){
             return <Redirect to="/signin"/>
         }
         else{

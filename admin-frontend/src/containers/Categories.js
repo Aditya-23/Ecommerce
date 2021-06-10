@@ -62,7 +62,7 @@ class Categories extends Component {
 
     componentDidMount = async () => {
         console.log("Calling here")
-        var token = this.props.cookies.get("token")
+        var token = this.props.cookies.get("admin-token")
         await this.setState({token : token});
         await this.props.getAllCategories(token);
         await this.setState({categoriesAsAList : this.props.categoriesAsList});
@@ -82,7 +82,7 @@ class Categories extends Component {
     }
 
     render() {
-        if(!this.props.cookies.get("token")){
+        if(!this.props.cookies.get("admin-token")){
             console.log("logged in");
             return <Redirect to="/Signin"/>
         }

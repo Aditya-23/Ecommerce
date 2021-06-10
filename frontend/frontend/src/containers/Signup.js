@@ -89,8 +89,7 @@ class Signup extends Component {
     }
 
     render() {
-        if(window.localStorage.getItem("token")){
-            console.log("logged in");
+        if(window.localStorage.getItem("user-token")){
             return <Redirect to="/"/>
         }else {
             return (

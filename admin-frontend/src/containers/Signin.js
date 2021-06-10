@@ -81,7 +81,7 @@ class Signin extends Component {
     }
 
     render() {
-        if(this.props.cookies.get("token")){
+        if(this.props.cookies.get("admin-token")){
             console.log("logged in");
             return <Redirect to="/"/>
         }

@@ -124,7 +124,7 @@ class Header extends Component {
     }
 
     componentDidMount = async () => {
-        await this.props.getAllCategories(this.props.cookies.get("token"));
+        await this.props.getAllCategories(this.props.cookies.get("user-token"));
         await this.setState({categoriesLoaded: true});
         console.log("Header : " ,this.props.allCategories);
     }
@@ -134,7 +134,7 @@ class Header extends Component {
         return (
             <Navbar bg="primary" variant="dark">
                 <Navbar.Brand href="#home">Ecom Logo</Navbar.Brand>
-                {this.props.cookies.get("token") ? this.loggedInUser() : this.loggedOutUser()}
+                {this.props.cookies.get("user-token") ? this.loggedInUser() : this.loggedOutUser()}
             </Navbar>
         )
     }

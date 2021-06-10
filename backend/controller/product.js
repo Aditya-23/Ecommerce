@@ -3,6 +3,7 @@ const Category = require("../models/category").categoryModel
 
 
 const getProductsByCategory = async (req, res, next) => {
+    console.log("Get products be category...")
     console.log("slug : ", req.params.slug)
     var allCategoryProducts;
     try {

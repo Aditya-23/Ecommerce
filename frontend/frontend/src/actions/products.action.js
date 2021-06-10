@@ -2,7 +2,7 @@ import ecomAxios from "../helpers/axios";
 
 export const getAllCategoryProducts = (token, categoryName) => {
     return async(dispatch) =>{
-        console.log("category name : ", categoryName);
+        console.log("Token:  ", token);
         var result = await ecomAxios.get("/api/products/get-products-by-category/" + categoryName, {
             headers : {
                 Authorization : token
